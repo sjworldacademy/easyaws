@@ -1,0 +1,2 @@
+# easyaws
+for TStory source
