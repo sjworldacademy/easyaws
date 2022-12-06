@@ -4,35 +4,32 @@ template_email = '''
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, user-scalable=no">
-<title>일일 리포트</title>
+<title>슈퍼투데이 오늘마감 리포트</title>
 <style>
 * {font-family:Trebuchet MS, arial, 굴림;font-size:12px;}
 .main {width:960px;margin:auto;}
+.main .header{background:black;color:white;padding:10px; line-height: 0;}
+.main h2 {font-size:28px;font-weight:bold;}
+.main h3 {font-size:20px;font-weight:bold;text-align: right;}
+.main h4 {font-size:14px;font-weight:bold;text-align: center;}
 td, th {padding:5px;border:solid 1px #CCCCCC;line-height:18px;}
 th {background:lightgrey; font-weight:bold;}
 table {border-collapse:collapse;table-layout:fixed;width:100%%;}
+td{text-align:center;}
+td:nth-child(3) {text-align:left}
+td:nth-child(6) {text-align:right}
 </style>
 </head>
 <body>
     <div class="main">
-        <table border="0" cellpadding="0" cellspacing="0">
-            <tr>
-                <td style="background-color:#4F5258;">
-                    <div style="padding:10px 0 10px 15px;color:#FFFFFF;">
-                        <font style="font-size:20px;font-weight:bold;">신탁사이트 일일 리포트</font>
-                    </div>
-                    <div style="float:right;padding:10px 10px 10px 15px;color:#FFFFFF;">
-                        <font style="font-size:14px;font-weight:bold;">%s</font>
-                    </div>
-                </td>
-            </tr>
-        </table>
-
-        <div style="width:100%%;margin-left:5px;padding-top:10px;line-height:17px;">
-            <br>오늘도 대박나셔요. *^^*
+        <div class="header">
+            <h2>슈퍼투데이 오늘마감 리포트</h2>
+            <h3>%s</h3>
+            <h4>*^^* 오늘도 대박나셔요. *^^*</h4>
         </div>
-
+        <!--//////////////////////////////////////////////////////////////////-->
         %s
+        <!--//////////////////////////////////////////////////////////////////-->
 
     </div>
 </body>

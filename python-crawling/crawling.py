@@ -2,9 +2,12 @@
 import requests
 import json
 from bs4 import BeautifulSoup
+from template_email import *
 
 def crawling():
 
+    print('Crawling Start...')
+    
     res = requests.get('https://www.suto.co.kr/bbs/today_close.php')
     #print(res.text)
     
@@ -13,7 +16,7 @@ def crawling():
     
     html = []
     html.append('<table>')
-    html.append('<colgroup><col width="8%"/><col width="8%"/><col width="*"/><col width="20%"/><col width="8%"/><col width="8%"/><col width="8%"/></colgroup>')
+    html.append('<colgroup><col width="5%"/><col width="5%"/><col width="*"/><col width="20%"/><col width="5%"/><col width="5%"/><col width="5%"/></colgroup>')
     html.append('<thead><tr><th>번호</th><th>분류</th><th>제목</th><th>경품태그</th><th>발표</th><th>조회</th><th>추천</th></tr></thead>')
     html.append('<tbody>')
     
@@ -22,7 +25,7 @@ def crawling():
         #print(tr)
         if str(tr).find("background:#fffdf5") < 0:
             td = BeautifulSoup(str(tr), "html.parser").select('td')
-            tdstr = "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>" % (
+            tdstr = "<tr><td>%s</td><td>%s</td>%s<td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>" % (
                 td[0].text,
                 td[1].text,
                 td[2],
@@ -31,11 +34,11 @@ def crawling():
                 td[6].text,
                 td[7].text,
             )
-            html.append(tdstr.replace('"/', '"https://www.suto.co.kr/'))
+            html.append(tdstr.replace('"/', '"https://www.suto.co.kr/').replace('<a ', '<a target="_blank" ').replace('</a>', '</a><br>'))
 
     html.append('</tbody>\n</table>')
     data = '\n'.join(html)
-    #print(data)
+    print('Crawling Complete!')
     return data
 
 if __name__ == "__main__":
