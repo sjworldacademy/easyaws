@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>군포시민광장배트민턴장예약</title>
+    <style>
+    body, input, select, button {font-size:24px;text-align:center;}
+    input{border:0;color:blue;}
+    dt {font-size:20px;}
+    dd {margin:0;color:blue;}
+    button {padding:10px;width:75%;background:black;color:white;}
+    select {padding:10px;color:red;font-weight: bold;width:40%;}
+    a.on {background:red;font-size:24px;font-weight:bold;color:white;}
+    </style>
+</head>
+<body>
+    <dl>
+        <dt>
+            <a href="reservation.html" class="on">시민체육(3단지)</a>
+            <a href="reservation-2.html">군포국민(트더)</a>
+        </dt>
+    </dl>
+    <dl>
+        <dt>* 날짜(1주일 후 고정) *</dt>
+        <dd><input type="text" id="rdate" readonly/></dd>
+    </dl>
+    <dl>
+        <dt>* 예약시간(2시간 고정)</dt>
+        <dd><select id="parttime">
+            <option value="8">08시/09시</option>
+            <option value="7">07시/08시</option>
+        </select></dd>
+    </dl>
+    <dl>
+        <dt>* 코트(6번 또는 7번)</dt>
+        <dd><select id="coat">
+            <option value="6">6번 코트</option>
+            <option value="7">7번 코트</option>
+        </select></dd>
+    </dl>
+
+    <button onclick="reservation();">예약하기</button>    
+    
+    <div id="nowtime"></div>
+
+    <script>
+    const wday = ['일', '월', '화', '수', '목', '금', '토']
+    const dateControl = document.querySelector('#rdate')
+    dateControl.value = nextWeek();    
+    
+    function nextWeek() {
+        var d = new Date();
+        var dayOfMonth = d.getDate();
+        d.setDate(dayOfMonth + 7);
+        return getDateStr(d, 1) + ' (' + wday[d.getDay()] + ')';
+      }
+      function getDateStr(myDate, _t){
+        var year = myDate.getFullYear();
+        var month = (myDate.getMonth() + 1);
+        var day = myDate.getDate();
+        
+        month = (month < 10) ? "0" + String(month) : month;
+        day = (day < 10) ? "0" + String(day) : day;
+
+        return  _t? year + '-' + month + '-' + day : year + month + day;
+    }
+    function reservation() {
+
+        var url = '';
+        if (document.querySelector('#parttime').value == 7) {//7시부터
+            if (document.querySelector('#coat').value == 6) {//6코트
+                url = "https://www.gunpouc.or.kr/fmcs/160?referer=%2Ffmcs%2F157%3Faction%3Dwrite%26comcd%3DGUNPO02%26part_cd%3D02%26place_cd%3D28%26time_no%3D913%253B2%25EB%25B6%2580%253B0700%253B0800%253B1%257C914%253B3%25EB%25B6%2580%253B0800%253B0900%253B1%26rent_type%3D1001%26rent_date%3D";
+            } else {//7코트
+                url = "https://www.gunpouc.or.kr/fmcs/160?referer=%2Ffmcs%2F157%3Faction%3Dwrite%26comcd%3DGUNPO02%26part_cd%3D02%26place_cd%3D29%26time_no%3D929%253B2%25EB%25B6%2580%253B0700%253B0800%253B1%257C930%253B3%25EB%25B6%2580%253B0800%253B0900%253B1%26rent_type%3D1001%26rent_date%3D";
+            }
+        } else {//8시부터
+            if (document.querySelector('#coat').value == 6) {//6코드
+                url = "https://www.gunpouc.or.kr/fmcs/160?referer=%2Ffmcs%2F157%3Faction%3Dwrite%26comcd%3DGUNPO02%26part_cd%3D02%26place_cd%3D28%26time_no%3D914%253B3%25EB%25B6%2580%253B0800%253B0900%253B1%257C915%253B4%25EB%25B6%2580%253B0900%253B1000%253B1%26rent_type%3D1001%26rent_date%3D";
+            } else {//7코트
+                url = "https://www.gunpouc.or.kr/fmcs/160?referer=%2Ffmcs%2F157%3Faction%3Dwrite%26comcd%3DGUNPO02%26part_cd%3D02%26place_cd%3D29%26time_no%3D930%253B3%25EB%25B6%2580%253B0800%253B0900%253B1%257C931%253B4%25EB%25B6%2580%253B0900%253B1000%253B1%26rent_type%3D1001%26rent_date%3D";
+            }
+        }
+        
+        var d = new Date();
+        var dayOfMonth = d.getDate();
+        d.setDate(dayOfMonth + 7);
+        var rdate = getDateStr(d, 0)
+
+        url += rdate;
+        console.log(url);
+        location.href = url;        
+
+    }
+    function getTime() {
+		var d = new Date();	// 현재 날짜와 시간
+		var hur = d.getHours();		// 시
+		var min = d.getMinutes();	//분
+		var sec = d.getSeconds();	//초
+ 
+		var timeBoard = document.getElementById("nowtime"); // 값이 입력될 공간
+		
+		var time = ('0'+hur).substr(-2) + " : " + ('0'+min).substr(-2) + " : " + ('0'+sec).substr(-2)
+		
+		timeBoard.innerHTML = time;	// 출력
+		
+		setTimeout(getTime, 250);	//1000밀리초(1초) 마다 반복
+	}
+    getTime();
+    </script>
+</body>
+</html>
