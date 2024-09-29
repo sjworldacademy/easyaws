@@ -29,6 +29,7 @@
         <dt>* 예약시간(2시간 고정)</dt>
         <dd><select id="parttime">
             <option value="8">08시/09시</option>
+            <option value="13">13시/14시</option>
             <option value="7">07시/08시</option>
         </select></dd>
     </dl>
@@ -60,8 +61,8 @@
         var month = (myDate.getMonth() + 1);
         var day = myDate.getDate();
         
-        month = (month < 10) ? "0" + String(month) : month;
-        day = (day < 10) ? "0" + String(day) : day;
+        month = (month < 10) ? "0" + String(month) : String(month);
+        day = (day < 10) ? "0" + String(day) : String(day);
 
         return  _t? year + '-' + month + '-' + day : year + month + day;
     }
@@ -73,6 +74,12 @@
                 url = "https://www.gunpouc.or.kr/fmcs/160?referer=%2Ffmcs%2F157%3Faction%3Dwrite%26comcd%3DGUNPO02%26part_cd%3D02%26place_cd%3D28%26time_no%3D913%253B2%25EB%25B6%2580%253B0700%253B0800%253B1%257C914%253B3%25EB%25B6%2580%253B0800%253B0900%253B1%26rent_type%3D1001%26rent_date%3D";
             } else {//7코트
                 url = "https://www.gunpouc.or.kr/fmcs/160?referer=%2Ffmcs%2F157%3Faction%3Dwrite%26comcd%3DGUNPO02%26part_cd%3D02%26place_cd%3D29%26time_no%3D929%253B2%25EB%25B6%2580%253B0700%253B0800%253B1%257C930%253B3%25EB%25B6%2580%253B0800%253B0900%253B1%26rent_type%3D1001%26rent_date%3D";
+            }
+        }else if (document.querySelector('#parttime').value == 13) {//오후1시
+            if (document.querySelector('#coat').value == 6) {//6코트
+                url = "https://www.gunpouc.or.kr/fmcs/160?referer=%2Ffmcs%2F157%3Faction%3Dwrite%26comcd%3DGUNPO02%26part_cd%3D02%26place_cd%3D28%26time_no%3D919%253B8%25EB%25B6%2580%253B1300%253B1400%253B1%257C920%253B9%25EB%25B6%2580%253B1400%253B1500%253B1%26rent_type%3D1001%26rent_date%3D";
+            } else {//7코트
+                url = "https://www.gunpouc.or.kr/fmcs/160?referer=%2Ffmcs%2F157%3Faction%3Dwrite%26comcd%3DGUNPO02%26part_cd%3D02%26place_cd%3D29%26time_no%3D935%253B8%25EB%25B6%2580%253B1300%253B1400%253B1%257C936%253B9%25EB%25B6%2580%253B1400%253B1500%253B1%26rent_type%3D1001%26rent_date%3D";
             }
         } else {//8시부터
             if (document.querySelector('#coat').value == 6) {//6코드

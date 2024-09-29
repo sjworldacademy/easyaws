@@ -62,8 +62,8 @@
         var month = (myDate.getMonth() + 1);
         var day = myDate.getDate();
         
-        month = (month < 10) ? "0" + String(month) : month;
-        day = (day < 10) ? "0" + String(day) : day;
+        month = (month < 10) ? "0" + String(month) : String(month);
+        day = (day < 10) ? "0" + String(day) : String(day);
 
         return  _t? year + '-' + month + '-' + day : year + month + day;
     }
